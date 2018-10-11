@@ -7,6 +7,7 @@ date:		11 October 2018
 *********************************************************************************/
 #pragma once
 #include <iostream>
+#include <vector>
 using namespace std;
 
 #include "Piece.h"
@@ -14,7 +15,9 @@ using namespace std;
 class State
 {
 	private:
-
+		Piece *state[9];
+		vector<State *> parents;
+		vector<State *> children;
 	public:
 		State();
 		~State();
