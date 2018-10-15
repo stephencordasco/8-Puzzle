@@ -15,10 +15,17 @@ using namespace std;
 class State
 {
 	private:
-		Piece *state[9];
+		// member variables
+		Piece *state;
 		vector<State *> parents;
 		vector<State *> children;
 	public:
-		State();
+		// constructor
+		State(Piece arr[]);
+		// destructor
 		~State();
+		
+		// member functions
+		void findChildStates();
+		void displayState() const;
 };

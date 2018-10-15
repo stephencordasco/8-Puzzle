@@ -20,6 +20,7 @@ bool checkGoalState(Piece state[], Piece goal[], int arrSize);
 
 int main()
 {
+	// ====================== SETUP ======================
 	// all the pieces for the 8 puzzle game
 	Piece blank(0, true), one(1, false), two(2, false),
 		three(3, false), four(4, false), five(5, false),
@@ -48,8 +49,17 @@ int main()
 	printState(goalState);
 	cout << "Initial State\n";
 	printState(initialState);
+	// ===================================================
 
-	// game loop
+
+	// ============ CONSTRUCT THE STATE SPACE ============
+	cout << "Current State\n";
+	State state(initialState);
+	state.displayState();
+	// ===================================================
+
+
+	// ==================== GAME LOOP ====================
 	while (!gameOver)
 	{
 		// get input from the user
@@ -77,6 +87,8 @@ int main()
 			cout << "Move count: " << countMoves << "\n\n";
 		}
 	}
+	// ===================================================
+
 
 	system("pause");
 	return 0;
