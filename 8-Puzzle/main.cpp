@@ -53,25 +53,14 @@ int main()
 
 
 	// ============ CONSTRUCT THE STATE SPACE ============
-	cout << "Current State\n";
+	cout << "Searching for the goal State...\n";
 	BFS_Queue bfs_queue;
-	bfs_queue.enqueue(initialState);
-	if (bfs_queue.isEmpty())
-		cout << "Queue is empty.\n";
-	else
-		cout << "Queue is not empty.\n";
-
-	Piece *pieceArr = initialState;
-	bfs_queue.dequeue(pieceArr);
-
-	printState(pieceArr);
-	if (bfs_queue.isEmpty())
-		cout << "Queue is empty.\n";
+	bfs_queue.BFS(initialState, goalState);
 	// ===================================================
 
 
 	// ==================== GAME LOOP ====================
-	while (!gameOver)
+	/*while (!gameOver)
 	{
 		// get input from the user
 		cout << "Enter a move: ";
@@ -97,7 +86,7 @@ int main()
 			// print the moves taken
 			cout << "Move count: " << countMoves << "\n\n";
 		}
-	}
+	}*/
 	// ===================================================
 
 

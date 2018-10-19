@@ -12,13 +12,13 @@ date:		18 October 2018
 
 class State
 {
-	friend class BFS_Queue;
 	private:
+		friend class BFS_Queue;
 		// private member variables
 		Piece *state;
 		State *next;
 	public:
 		// constructor
-		State();
 		State(Piece arr[]);
+		void printState(Piece *);
 };

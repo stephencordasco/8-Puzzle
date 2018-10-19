@@ -7,11 +7,6 @@ date:		18 October 2018
 *********************************************************************************/
 #include "State.h"
 
-State::State()
-{
-	next = nullptr;
-}
-
 /*********************************************************************************
 name:		State
 parameters:	Piece object array
@@ -21,4 +16,24 @@ State::State(Piece arr[])
 {
 	state = arr;
 	next = nullptr;
+}
+
+void State::printState(Piece *nState)
+{
+	// helper variable
+	int count = 0;
+
+	// display the initial state
+	cout << "-------\n";
+	for (int i = 0; i < 9; i++)
+	{
+		cout << "|" << nState[i].getValue();
+		count++;
+		if (count == 3)
+		{
+			cout << "|\n";
+			count = 0;
+		}
+	}
+	cout << "-------\n";
 }

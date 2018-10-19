@@ -9,8 +9,8 @@ date:		18 October 2018
 
 class Piece
 {
-	friend class State;
 	private:
+		friend class State;
 		// every piece has a value
 		int value;
 		// every piece has a boolean; true for blank false for other

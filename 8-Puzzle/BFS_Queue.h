@@ -30,6 +30,8 @@ class BFS_Queue
 		void enqueue(Piece *);
 		void dequeue(Piece *);
 		bool isEmpty() const;
-		void displayStateSpace();
-		void BFS();
+		void clear();
+		void BFS(Piece *, Piece *);
+		Piece *tryUp(Piece *);
+		Piece *tryRight(Piece *);
 };

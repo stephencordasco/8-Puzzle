@@ -17,7 +17,7 @@ BFS_Queue::BFS_Queue()
 
 BFS_Queue::~BFS_Queue()
 {
-	displayStateSpace();
+	clear();
 }
 
 void BFS_Queue::enqueue(Piece *nState)
@@ -47,6 +47,7 @@ void BFS_Queue::dequeue(Piece *nState)
 		nState = front->state;
 		temp = front;
 		front = front->next;
+		temp->printState(temp->state);
 		delete temp;
 	}
 }
@@ -59,14 +60,76 @@ bool BFS_Queue::isEmpty() const
 		return false;
 }
 
-void BFS_Queue::displayStateSpace()
+void BFS_Queue::clear()
 {
 	Piece *aState = nullptr;
 	while (!isEmpty())
+	{
 		dequeue(aState);
+	}
 }
 
-void BFS_Queue::BFS()
+void BFS_Queue::BFS(Piece *initialState, Piece *goalState)
 {
+	// add the initial state to the front of the queue
+	enqueue(initialState);
+	Piece *current = new Piece();
+	copy(initialState, initialState + 9, current);
+	current = tryUp(current);
+	enqueue(current);
+	Piece *n = new Piece();
+	copy(initialState, initialState + 9, n);
+	n = tryRight(n);
+	enqueue(n);
 
+	cout << "...constructing the state space...\n";
+	clear();
+}
+
+Piece *BFS_Queue::tryUp(Piece *arr)
+{
+	for (int i = 0; i < 9; i++)
+	{
+		// check for blank piece
+		if (arr[i].getValue() == 0)
+		{
+			// check for invalid move
+			if (i == 0 || i == 1 || i == 2)
+			{
+				return arr;
+			}
+			// move the piece
+			Piece temp = arr[i - 3];
+			arr[i - 3].setValue(0);
+			arr[i - 3].setBlank(true);
+			arr[i].setValue(temp.getValue());
+			arr[i].setBlank(temp.isBlank());
+		}
+	}
+	return arr;
+}
+
+Piece *BFS_Queue::tryRight(Piece *arr)
+{
+	for (int i = 0; i < 9; i++)
+	{
+		// check for blank piece
+		if (arr[i].getValue() == 0)
+		{
+			// check for invalid move
+			if (i == 2 || i == 5 || i == 8)
+			{
+				return arr;
+			}
+			// move the piece
+			Piece temp = arr[i + 1];
+			arr[i + 1].setValue(0);
+			arr[i + 1].setBlank(true);
+			arr[i].setValue(temp.getValue());
+			arr[i].setBlank(temp.isBlank());
+			// return to function call to prevent continued execution
+			return arr;
+		}
+	}
+	return arr;
 }
