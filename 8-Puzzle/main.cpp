@@ -9,7 +9,7 @@ purpose:	An initial state and goal state are initialized. An AI using a BFS
 			two AI.
 class:		CS 481 - AI
 instructor:	Dr. Han
-date:		11 October 2018
+date:		18 October 2018
 *********************************************************************************/
 #include "State.h"
 
@@ -54,8 +54,19 @@ int main()
 
 	// ============ CONSTRUCT THE STATE SPACE ============
 	cout << "Current State\n";
-	State state(initialState);
-	state.displayState();
+	BFS_Queue bfs_queue;
+	bfs_queue.enqueue(initialState);
+	if (bfs_queue.isEmpty())
+		cout << "Queue is empty.\n";
+	else
+		cout << "Queue is not empty.\n";
+
+	Piece *pieceArr = initialState;
+	bfs_queue.dequeue(pieceArr);
+
+	printState(pieceArr);
+	if (bfs_queue.isEmpty())
+		cout << "Queue is empty.\n";
 	// ===================================================
 
 
