@@ -17,6 +17,7 @@ BFS_Queue::BFS_Queue()
 
 BFS_Queue::~BFS_Queue()
 {
+	cout << "deallocating memory\n";
 	clear();
 }
 
@@ -48,6 +49,7 @@ void BFS_Queue::dequeue(Piece *nState)
 		temp = front;
 		front = front->next;
 		temp->printState(temp->state);
+		cout << "deleting a node\n";
 		delete temp;
 	}
 }
@@ -65,6 +67,7 @@ void BFS_Queue::clear()
 	Piece *aState = nullptr;
 	while (!isEmpty())
 	{
+		cout << "deleting a node\n";
 		dequeue(aState);
 	}
 }
@@ -73,16 +76,12 @@ void BFS_Queue::BFS(Piece *initialState, Piece *goalState)
 {
 	// add the initial state to the front of the queue
 	enqueue(initialState);
-	Piece *current = new Piece();
-	copy(initialState, initialState + 9, current);
-	current = tryUp(current);
-	enqueue(current);
-	Piece *n = new Piece();
-	copy(initialState, initialState + 9, n);
-	n = tryRight(n);
-	enqueue(n);
+	dequeue(initialState);
 
-	cout << "...constructing the state space...\n";
+	State *current = new State(initialState);
+	current->state = tryUp(current->state);
+	enqueue(current->state);
+	dequeue(current->state);
 	clear();
 }
 

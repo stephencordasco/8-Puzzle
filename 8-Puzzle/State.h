@@ -20,5 +20,6 @@ class State
 	public:
 		// constructor
 		State(Piece arr[]);
+		State(const State &arr);
 		void printState(Piece *);
 };

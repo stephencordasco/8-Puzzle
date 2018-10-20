@@ -53,7 +53,7 @@ int main()
 
 
 	// ============ CONSTRUCT THE STATE SPACE ============
-	cout << "Searching for the goal State...\n";
+	cout << "Current State\n";
 	BFS_Queue bfs_queue;
 	bfs_queue.BFS(initialState, goalState);
 	// ===================================================
