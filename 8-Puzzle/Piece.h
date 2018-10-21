@@ -7,6 +7,8 @@ date:		18 October 2018
 *********************************************************************************/
 #pragma once
 
+#include <iostream>
+
 class Piece
 {
 	private:

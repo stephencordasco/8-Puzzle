@@ -14,34 +14,7 @@ purpose:	default constructor
 *********************************************************************************/
 State::State(Piece arr[])
 {
-	cout << "allocating memory\n";
+	//cout << "allocating memory\n";
 	state = arr;
 	next = nullptr;
-}
-
-State::State(const State &arr)
-{
-	cout << "allocating memory\n";
-	state = new Piece;
-	*state = *arr.state;
-}
-
-void State::printState(Piece *nState)
-{
-	// helper variable
-	int count = 0;
-
-	// display the initial state
-	cout << "-------\n";
-	for (int i = 0; i < 9; i++)
-	{
-		cout << "|" << nState[i].getValue();
-		count++;
-		if (count == 3)
-		{
-			cout << "|\n";
-			count = 0;
-		}
-	}
-	cout << "-------\n";
 }
