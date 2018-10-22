@@ -8,6 +8,7 @@ date:		18 October 2018
 #pragma once
 
 #include <iostream>
+#include <Windows.h>
 using namespace std;
 
 #include "State.h"
