@@ -14,69 +14,113 @@ date:		18 October 2018
 #include "State.h"
 
 // function prototypes
+void printMenu();
+char getMenuChoice();
+void playGame();
+void playGameBFS_AI();
 void printState(Piece arr[]);
-void movePiece(Piece arr[], int choice);
+void movePiece(Piece arr[], char choice);
 bool checkGoalState(Piece state[], Piece goal[], int arrSize);
 
 int main()
 {
-	// ====================== SETUP ======================
+	// user choice
+	char menuChoice = ' ';
+	// begin program loop
+	do
+	{
+		// print the menu
+		printMenu();
+		menuChoice = getMenuChoice();
+		// get the menuChoice
+		switch (menuChoice)
+		{
+			case '1':	// user plays the game
+				playGame();
+				break;
+
+			case '2': // AI plays the game
+				playGameBFS_AI();
+				break;
+
+			case '3':
+				cout << "Goodbye!\n\n";
+				break;
+
+			default:
+				cout << "\nINVALID MENU CHOICE\n";
+		}
+
+	} while (menuChoice != '3');
+
+	system("pause");
+	return 0;
+}
+
+void printMenu()
+{
+	cout << "==================== 8-Puzzle ====================\n\n";
+	cout << "1.) Play 8-Puzzle\n";
+	cout << "2.) AI Plays 8-Puzzle (Using BFS)\n";
+	cout << "3.) Exit\n";
+	cout << "==================================================\n";
+}
+
+char getMenuChoice()
+{
+	cout << "Enter a menu choice: ";
+	char menuChoice = ' ';
+	cin >> menuChoice;
+
+	return menuChoice;
+}
+
+void playGame()
+{
+	// determines when the game is done
+	bool gameOver = false;
+	// store user move choice
+	char moveChoice = ' ';
+	// counts the moves taken to find the goal state
+	int countMoves = 0;
+
 	// all the pieces for the 8 puzzle game
 	Piece blank(0, true), one(1, false), two(2, false),
 		three(3, false), four(4, false), five(5, false),
 		six(6, false), seven(7, false), eight(8, false);
 
-	// determines when the game is done
-	bool gameOver = false;
-
-	// counts the moves taken to find the goal state
-	int countMoves = 0;
-
-	// user choice
-	int uChoice = 0;
-
 	// initialize the initial state
-	Piece initialState[9] = {	two, eight, three,
+	Piece initialState[9] = { two, eight, three,
 								one, six, four,
-								blank, seven, five	};
+								blank, seven, five };
 	// initialize the goal state
-	Piece goalState[9] = {		one, two, three,
+	Piece goalState[9] = { one, two, three,
 								eight, blank, four,
-								seven, six, five	};
+								seven, six, five };
 
 	// print the initial state and the goal state
-	cout << "Goal State\n";
+	cout << "\nGoal State\n";
 	printState(goalState);
 	cout << "Initial State\n";
 	printState(initialState);
-	// ===================================================
 
-
-	// ============ CONSTRUCT THE STATE SPACE ============
-	cout << "Current State\n";
-	BFS_Queue bfs_queue;
-	bfs_queue.BFS(initialState, goalState);
-	// ===================================================
-
-
-	// ==================== GAME LOOP ====================
-	/*while (!gameOver)
+	while (!gameOver)
 	{
 		// get input from the user
 		cout << "Enter a move: ";
-		cin >> uChoice;
+		cin >> moveChoice;
 		// move the piece
-		movePiece(initialState, uChoice);
+		movePiece(initialState, moveChoice);
 		// print the new state
 		printState(initialState);
-
+		// check for goal state
 		if (checkGoalState(initialState, goalState, 9))
 		{
 			cout << "Goal state found!\n";
 			// increment the final move
 			countMoves++;
 			// print the final move count
-			cout << "Total moves: " << countMoves << "\n";
+			cout << "Total moves: " << countMoves << "\n\n\n";
 			gameOver = true;
 		}
 		else
@@ -86,12 +130,31 @@ int main()
 			// print the moves taken
 			cout << "Move count: " << countMoves << "\n\n";
 		}
-	}*/
-	// ===================================================
+	}
+}
 
+void playGameBFS_AI()
+{
+	// all the pieces for the 8 puzzle game
+	Piece blank(0, true), one(1, false), two(2, false),
+		three(3, false), four(4, false), five(5, false),
+		six(6, false), seven(7, false), eight(8, false);
 
-	system("pause");
-	return 0;
+	// initialize the initial state
+	Piece initialState[9] = { two, eight, three,
+								one, six, four,
+								blank, seven, five };
+	// initialize the goal state
+	Piece goalState[9] = { one, two, three,
+								eight, blank, four,
+								seven, six, five };
+
+	// instance of BFS_Queue class
+	BFS_Queue bfs_queue;
+
+	// begin search
+	cout << "Current State\n";
+	bfs_queue.BFS(initialState, goalState);
 }
 
 /*********************************************************************************
@@ -127,11 +190,11 @@ purpose:	checks the input from the user; if valid continue else return
 			checks for invalid move; if invalid return
 			moves the piece
 *********************************************************************************/
-void movePiece(Piece arr[], int choice)
+void movePiece(Piece arr[], char choice)
 {
 	switch (choice)
 	{
-		case 1:	// left move call
+		case '1':	// left move call
 			for (int i = 0; i < 9; i++)
 			{
 				// check for blank piece
@@ -152,7 +215,7 @@ void movePiece(Piece arr[], int choice)
 				}
 			}
 			break;
-		case 2: // right move call
+		case '2': // right move call
 			for (int i = 0; i < 9; i++)
 			{
 				// check for blank piece
@@ -175,7 +238,7 @@ void movePiece(Piece arr[], int choice)
 				}
 			}
 			break;
-		case 3:	// up move call
+		case '3':	// up move call
 			for (int i = 0; i < 9; i++)
 			{
 				// check for blank piece
@@ -196,7 +259,7 @@ void movePiece(Piece arr[], int choice)
 				}
 			}
 			break;
-		case 4:	// down move call
+		case '4':	// down move call
 			for (int i = 0; i < 9; i++)
 			{
 				// check for blank piece

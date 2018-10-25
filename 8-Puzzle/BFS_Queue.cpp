@@ -119,7 +119,7 @@ void BFS_Queue::BFS(Piece *initialState, Piece *goalState)
 			enqueue(down);
 		}
 	}
-	cout << "Goal state found!\n";
+	cout << "Goal state found!\n\n\n";
 	clear();
 }
 
