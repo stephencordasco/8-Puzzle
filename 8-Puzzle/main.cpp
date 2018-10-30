@@ -59,7 +59,7 @@ int main()
 
 void printMenu()
 {
-	cout << "==================== 8-Puzzle ====================\n\n";
+	cout << "==================== 8-Puzzle ====================\n";
 	cout << "1.) Play 8-Puzzle\n";
 	cout << "2.) AI Plays 8-Puzzle (Using BFS)\n";
 	cout << "3.) Exit\n";
