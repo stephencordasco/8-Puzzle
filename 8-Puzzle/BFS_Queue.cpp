@@ -91,7 +91,7 @@ void BFS_Queue::BFS(Piece *initialState, Piece *goalState)
 		copy(next, next + 9, right);
 		copy(next, next + 9, down);
 		// print the state
-		Sleep(100);
+		//Sleep(100);
 		printState(next);
 		// pop the front node
 		dequeue();

@@ -7,6 +7,7 @@ date:		18 October 2018
 *********************************************************************************/
 #pragma once
 
+#include <vector>
 #include "BFS_Queue.h"
 #include "Piece.h"
 
@@ -18,6 +19,6 @@ class State
 		Piece *state;
 		State *next;
 	public:
-		// constructor
+		// overloaded constructor
 		State(Piece arr[]);
 };

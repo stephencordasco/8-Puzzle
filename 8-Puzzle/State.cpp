@@ -10,11 +10,10 @@ date:		18 October 2018
 /*********************************************************************************
 name:		State
 parameters:	Piece object array
-purpose:	default constructor
+purpose:	overloaded constructor
 *********************************************************************************/
 State::State(Piece arr[])
 {
-	//cout << "allocating memory\n";
 	state = arr;
 	next = nullptr;
 }

@@ -14,8 +14,8 @@ purpose:	default constructor
 *********************************************************************************/
 Piece::Piece()
 {
-	this->value = 0;
-	this->blank = true;
+	value = 0;
+	blank = true;
 }
 
 /*********************************************************************************
@@ -25,8 +25,8 @@ purpose:	overloaded constructor
 *********************************************************************************/
 Piece::Piece(int aValue, bool aBlank)
 {
-	this->value = aValue;
-	this->blank = aBlank;
+	value = aValue;
+	blank = aBlank;
 }
 
 /*********************************************************************************
@@ -46,7 +46,7 @@ purpose:	used to set the value attribute of a Piece object
 *********************************************************************************/
 void Piece::setValue(int aValue)
 {
-	this->value = aValue;
+	value = aValue;
 }
 
 /*********************************************************************************
@@ -56,7 +56,7 @@ purpose:	used to set the blank attribute of a Piece object
 *********************************************************************************/
 void Piece::setBlank(bool aBlank)
 {
-	this->blank = aBlank;
+	blank = aBlank;
 }
 
 /*********************************************************************************
