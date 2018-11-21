@@ -1,3 +1,10 @@
+/*********************************************************************************
+author:		Stephen Cordasco
+project:	AI Project - 8-puzzle with BFS AI and A* AI
+class:		CS 481 - AI
+instructor:	Dr. Han
+date:		20 November 2018
+*********************************************************************************/
 #ifndef GRAPH_H
 #define GRAPH_H
 
@@ -62,15 +69,19 @@ public:
 
 	// graph member functions
 	void expandGraph(Piece[], Piece[9]);
+	void addLeft(GraphNode *ptr);
+	void addUp(GraphNode *ptr);
+	void addRight(GraphNode *ptr);
+	void addDown(GraphNode *ptr);
 	void printGraph(Piece *) const;
 	bool isEmpty();
 	void destroyGraph(GraphNode *ptr);
 
 	// helper functions
-	Piece * addChildLeft(Piece[]);
-	Piece * addChildUp(Piece[]);
-	Piece * addChildRight(Piece[]);
-	Piece * addChildDown(Piece[]);
+	Piece * moveLeft(Piece[]);
+	Piece * moveUp(Piece[]);
+	Piece * moveRight(Piece[]);
+	Piece * moveDown(Piece[]);
 
 private:
 	// pointer to the root of the graph

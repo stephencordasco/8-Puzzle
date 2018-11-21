@@ -1,3 +1,10 @@
+/*********************************************************************************
+author:		Stephen Cordasco
+project:	AI Project - 8-puzzle with BFS AI and A* AI
+class:		CS 481 - AI
+instructor:	Dr. Han
+date:		20 November 2018
+*********************************************************************************/
 #include "Graph.h"
 
 Graph::Graph()
@@ -19,25 +26,48 @@ void Graph::expandGraph(Piece init[], Piece goal[9])
 	GraphNode *ptr = root;
 	printGraph(ptr->arr);
 
-	Piece ll[9];
-	Piece uu[9];
-	Piece rr[9];
-	Piece dd[9];
+	// add nodes
+	addLeft(ptr);
+	addUp(ptr);
+	addRight(ptr);
+	addDown(ptr);
 
-	std::copy(ptr->arr, ptr->arr + 9, ll);
-	std::copy(ptr->arr, ptr->arr + 9, uu);
-	std::copy(ptr->arr, ptr->arr + 9, rr);
-	std::copy(ptr->arr, ptr->arr + 9, dd);
+}
 
-	GraphNode *l = new GraphNode(addChildLeft(ll));
-	GraphNode *u = new GraphNode(addChildUp(uu));
-	GraphNode *r = new GraphNode(addChildRight(rr));
-	GraphNode *d = new GraphNode(addChildDown(dd));
+void Graph::addLeft(GraphNode *ptr)
+{
+	Piece temp[9];
+	std::copy(ptr->arr, ptr->arr + 9, temp);
+	GraphNode *leftChild = new GraphNode(moveLeft(temp));
+	ptr->left = leftChild;
+	printGraph(leftChild->arr);
+}
 
-	printGraph(l->arr);
-	printGraph(u->arr);
-	printGraph(r->arr);
-	printGraph(d->arr);
+void Graph::addUp(GraphNode *ptr)
+{
+	Piece temp[9];
+	std::copy(ptr->arr, ptr->arr + 9, temp);
+	GraphNode *upChild = new GraphNode(moveUp(temp));
+	ptr->up = upChild;
+	printGraph(upChild->arr);
+}
+
+void Graph::addRight(GraphNode *ptr)
+{
+	Piece temp[9];
+	std::copy(ptr->arr, ptr->arr + 9, temp);
+	GraphNode *rightChild = new GraphNode(moveRight(temp));
+	ptr->right = rightChild;
+	printGraph(rightChild->arr);
+}
+
+void Graph::addDown(GraphNode *ptr)
+{
+	Piece temp[9];
+	std::copy(ptr->arr, ptr->arr + 9, temp);
+	GraphNode *downChild = new GraphNode(moveDown(temp));
+	ptr->down = downChild;
+	printGraph(downChild->arr);
 }
 
 void Graph::printGraph(Piece *arr) const
@@ -83,7 +113,7 @@ bool Graph::isEmpty()
 	}
 }
 
-Piece * Graph::addChildLeft(Piece arr[])
+Piece * Graph::moveLeft(Piece arr[])
 {
 	for (int i = 0; i < 9; i++)
 	{
@@ -106,7 +136,7 @@ Piece * Graph::addChildLeft(Piece arr[])
 	return arr;
 }
 
-Piece * Graph::addChildUp(Piece arr[])
+Piece * Graph::moveUp(Piece arr[])
 {
 	for (int i = 0; i < 9; i++)
 	{
@@ -129,7 +159,7 @@ Piece * Graph::addChildUp(Piece arr[])
 	return arr;
 }
 
-Piece * Graph::addChildRight(Piece arr[])
+Piece * Graph::moveRight(Piece arr[])
 {
 	for (int i = 0; i < 9; i++)
 	{
@@ -154,7 +184,7 @@ Piece * Graph::addChildRight(Piece arr[])
 	return arr;
 }
 
-Piece * Graph::addChildDown(Piece arr[])
+Piece * Graph::moveDown(Piece arr[])
 {
 	for (int i = 0; i < 9; i++)
 	{

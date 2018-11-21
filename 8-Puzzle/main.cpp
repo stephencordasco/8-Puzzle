@@ -18,6 +18,7 @@ date:		18 October 2018
 void printMenu();
 char getMenuChoice();
 void playGame();
+void playGameBF_AI();
 void playGameBFS_AI();
 void printState(Piece arr[]);
 void movePiece(Piece arr[], char choice);
@@ -40,11 +41,15 @@ int main()
 				playGame();
 				break;
 
-			case '2': // AI plays the game
+			case '2':	// AI plays the game (custom brute force)
+				playGameBF_AI();
+				break;
+
+			case '3':	// AI plays the game using BFS
 				playGameBFS_AI();
 				break;
 
-			case '3':
+			case '4':	// user quits
 				std::cout << "Goodbye!\n\n";
 				break;
 
@@ -52,7 +57,7 @@ int main()
 				std::cout << "\nINVALID MENU CHOICE\n";
 		}
 
-	} while (menuChoice != '3');
+	} while (menuChoice != '4');
 
 	system("pause");
 	return 0;
@@ -60,10 +65,11 @@ int main()
 
 void printMenu()
 {
-	std::cout << "==================== 8-Puzzle ====================\n";
+	std::cout << "\n==================== 8-Puzzle ====================\n";
 	std::cout << "1.) Play 8-Puzzle\n";
-	std::cout << "2.) AI Plays 8-Puzzle (Using BFS)\n";
-	std::cout << "3.) Exit\n";
+	std::cout << "2.) AI Plays 8-Puzzle (Using Custom Brute Force)\n";
+	std::cout << "3.) AI Plays 8-Puzzle (Using BFS)\n";
+	std::cout << "4.) Exit\n";
 	std::cout << "==================================================\n";
 }
 
@@ -134,7 +140,7 @@ void playGame()
 	}
 }
 
-void playGameBFS_AI()
+void playGameBF_AI()
 {
 	// all the pieces for the 8 puzzle game
 	Piece blank(0, true), one(1, false), two(2, false),
@@ -151,13 +157,32 @@ void playGameBFS_AI()
 								seven, six, five };
 
 	// instance of BFS_Queue class
-	//BFS_Queue bfs_queue;
+	BFS_Queue bfs_queue;
 
 	// begin search
-	//std::cout << "Current State\n";
-	//bfs_queue.BFS(initialState, goalState);
+	std::cout << "Current State\n";
+	bfs_queue.BFS(initialState, goalState);
+}
 
+void playGameBFS_AI()
+{
+	// all the pieces for the 8 puzzle game
+	Piece blank(0, true), one(1, false), two(2, false),
+		three(3, false), four(4, false), five(5, false),
+		six(6, false), seven(7, false), eight(8, false);
+
+	// initialize the initial state
+	Piece initialState[9] = { two, eight, three,
+								one, six, four,
+								blank, seven, five };
+	// initialize the goal state
+	Piece goalState[9] = { one, two, three,
+								eight, blank, four,
+								seven, six, five };
+
+	// create an instance of the graph
 	Graph graph;
+	// expand the graph
 	graph.expandGraph(initialState, goalState);
 }
 
