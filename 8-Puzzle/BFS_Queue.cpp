@@ -40,7 +40,7 @@ void BFS_Queue::dequeue()
 	State *temp;
 	if (isEmpty())
 	{
-		cout << "Queue is empty.\n";
+		std::cout << "Queue is empty.\n";
 		return;
 	}
 	else
@@ -74,22 +74,23 @@ void BFS_Queue::BFS(Piece *initialState, Piece *goalState)
 	enqueue(initialState);
 	// stores the current state; used to check for new states and goal state found
 	Piece *prev = new Piece[9];
+	Piece *left, *up, *right, *down;
 
 	while (isNewState(prev, goalState))
 	{
 		// pointer to the front of the queue
 		Piece *next = front->state;
 		// store the value returned by the try functions: memory leak potential? need solution
-		Piece *left = new Piece[9];
-		Piece *up = new Piece[9];
-		Piece *right = new Piece[9];
-		Piece *down = new Piece[9];
+		left = new Piece[9];
+		up = new Piece[9];
+		right = new Piece[9];
+		down = new Piece[9];
 		// deep copy on the piece pointers storing the "current" value of next pointer
-		copy(next, next + 9, prev);
-		copy(next, next + 9, left);
-		copy(next, next + 9, up);
-		copy(next, next + 9, right);
-		copy(next, next + 9, down);
+		std::copy(next, next + 9, prev);
+		std::copy(next, next + 9, left);
+		std::copy(next, next + 9, up);
+		std::copy(next, next + 9, right);
+		std::copy(next, next + 9, down);
 		// print the state
 		//Sleep(100);
 		printState(next);
@@ -119,7 +120,7 @@ void BFS_Queue::BFS(Piece *initialState, Piece *goalState)
 			enqueue(down);
 		}
 	}
-	cout << "Goal state found!\n\n\n";
+	std::cout << "Goal state found!\n\n\n";
 	clear();
 }
 
@@ -141,18 +142,18 @@ void BFS_Queue::printState(Piece *current) const
 	int count = 0;
 
 	// display the initial state
-	cout << "-------\n";
+	std::cout << "-------\n";
 	for (int i = 0; i < 9; i++)
 	{
-		cout << "|" << current[i].getValue();
+		std::cout << "|" << current[i].getValue();
 		count++;
 		if (count == 3)
 		{
-			cout << "|\n";
+			std::cout << "|\n";
 			count = 0;
 		}
 	}
-	cout << "-------\n";
+	std::cout << "-------\n";
 }
 
 Piece *BFS_Queue::tryLeft(Piece *arr)

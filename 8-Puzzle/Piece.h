@@ -5,7 +5,8 @@ class:		CS 481 - AI
 instructor:	Dr. Han
 date:		18 October 2018
 *********************************************************************************/
-#pragma once
+#ifndef PIECE_H
+#define PIECE_H
 
 #include <iostream>
 
@@ -31,3 +32,5 @@ class Piece
 		int getValue();
 		bool isBlank();
 };
+
+#endif

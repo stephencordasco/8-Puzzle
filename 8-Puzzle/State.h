@@ -5,7 +5,8 @@ class:		CS 481 - AI
 instructor:	Dr. Han
 date:		18 October 2018
 *********************************************************************************/
-#pragma once
+#ifndef STATE_H
+#define STATE_H
 
 #include <vector>
 #include "BFS_Queue.h"
@@ -22,3 +23,5 @@ class State
 		// overloaded constructor
 		State(Piece arr[]);
 };
+
+#endif

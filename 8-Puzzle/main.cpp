@@ -12,6 +12,7 @@ instructor:	Dr. Han
 date:		18 October 2018
 *********************************************************************************/
 #include "State.h"
+#include "Graph.h"
 
 // function prototypes
 void printMenu();
@@ -44,11 +45,11 @@ int main()
 				break;
 
 			case '3':
-				cout << "Goodbye!\n\n";
+				std::cout << "Goodbye!\n\n";
 				break;
 
 			default:
-				cout << "\nINVALID MENU CHOICE\n";
+				std::cout << "\nINVALID MENU CHOICE\n";
 		}
 
 	} while (menuChoice != '3');
@@ -59,18 +60,18 @@ int main()
 
 void printMenu()
 {
-	cout << "==================== 8-Puzzle ====================\n";
-	cout << "1.) Play 8-Puzzle\n";
-	cout << "2.) AI Plays 8-Puzzle (Using BFS)\n";
-	cout << "3.) Exit\n";
-	cout << "==================================================\n";
+	std::cout << "==================== 8-Puzzle ====================\n";
+	std::cout << "1.) Play 8-Puzzle\n";
+	std::cout << "2.) AI Plays 8-Puzzle (Using BFS)\n";
+	std::cout << "3.) Exit\n";
+	std::cout << "==================================================\n";
 }
 
 char getMenuChoice()
 {
-	cout << "Enter a menu choice: ";
+	std::cout << "Enter a menu choice: ";
 	char menuChoice = ' ';
-	cin >> menuChoice;
+	std::cin >> menuChoice;
 
 	return menuChoice;
 }
@@ -99,16 +100,16 @@ void playGame()
 								seven, six, five };
 
 	// print the initial state and the goal state
-	cout << "\nGoal State\n";
+	std::cout << "\nGoal State\n";
 	printState(goalState);
-	cout << "Initial State\n";
+	std::cout << "Initial State\n";
 	printState(initialState);
 
 	while (!gameOver)
 	{
 		// get input from the user
-		cout << "Enter a move: ";
-		cin >> moveChoice;
+		std::cout << "Enter a move: ";
+		std::cin >> moveChoice;
 		// move the piece
 		movePiece(initialState, moveChoice);
 		// print the new state
@@ -116,11 +117,11 @@ void playGame()
 		// check for goal state
 		if (checkGoalState(initialState, goalState, 9))
 		{
-			cout << "Goal state found!\n";
+			std::cout << "Goal state found!\n";
 			// increment the final move
 			countMoves++;
 			// print the final move count
-			cout << "Total moves: " << countMoves << "\n\n\n";
+			std::cout << "Total moves: " << countMoves << "\n\n\n";
 			gameOver = true;
 		}
 		else
@@ -128,7 +129,7 @@ void playGame()
 			// increment the moves count
 			countMoves++;
 			// print the moves taken
-			cout << "Move count: " << countMoves << "\n\n";
+			std::cout << "Move count: " << countMoves << "\n\n";
 		}
 	}
 }
@@ -150,11 +151,14 @@ void playGameBFS_AI()
 								seven, six, five };
 
 	// instance of BFS_Queue class
-	BFS_Queue bfs_queue;
+	//BFS_Queue bfs_queue;
 
 	// begin search
-	cout << "Current State\n";
-	bfs_queue.BFS(initialState, goalState);
+	//std::cout << "Current State\n";
+	//bfs_queue.BFS(initialState, goalState);
+
+	Graph graph;
+	graph.expandGraph(initialState, goalState);
 }
 
 /*********************************************************************************
@@ -168,18 +172,18 @@ void printState(Piece arr[])
 	int count = 0;
 
 	// display the initial state
-	cout << "-------\n";
+	std::cout << "-------\n";
 	for (int i = 0; i < 9; i++)
 	{
-		cout << "|" << arr[i].getValue();
+		std::cout << "|" << arr[i].getValue();
 		count++;
 		if (count == 3)
 		{
-			cout << "|\n";
+			std::cout << "|\n";
 			count = 0;
 		}
 	}
-	cout << "-------\n";
+	std::cout << "-------\n";
 }
 
 /*********************************************************************************
@@ -203,7 +207,7 @@ void movePiece(Piece arr[], char choice)
 					// check for invalid move
 					if (i == 0 || i == 3 || i == 6)
 					{
-						cout << "========== INVALID MOVE ==========\n";
+						std::cout << "========== INVALID MOVE ==========\n";
 						return;
 					}
 					// move the piece
@@ -224,7 +228,7 @@ void movePiece(Piece arr[], char choice)
 					// check for invalid move
 					if (i == 2 || i == 5 || i == 8)
 					{
-						cout << "========== INVALID MOVE ==========\n";
+						std::cout << "========== INVALID MOVE ==========\n";
 						return;
 					}
 					// move the piece
@@ -247,7 +251,7 @@ void movePiece(Piece arr[], char choice)
 					// check for invalid move
 					if (i == 0 || i == 1 || i == 2)
 					{
-						cout << "========== INVALID MOVE ==========\n";
+						std::cout << "========== INVALID MOVE ==========\n";
 						return;
 					}
 					// move the piece
@@ -268,7 +272,7 @@ void movePiece(Piece arr[], char choice)
 					// check for invalid move
 					if (i == 6 || i == 7 || i == 8)
 					{
-						cout << "========== INVALID MOVE ==========\n";
+						std::cout << "========== INVALID MOVE ==========\n";
 						return;
 					}
 					// move the piece
@@ -284,7 +288,7 @@ void movePiece(Piece arr[], char choice)
 			break;
 		default:
 			// check for invalid input key
-			cout << "\n========== INVALID CHOICE ==========\n";
+			std::cout << "\n========== INVALID CHOICE ==========\n";
 	}
 }
 

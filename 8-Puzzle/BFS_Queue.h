@@ -5,11 +5,11 @@ class:		CS 481 - AI
 instructor:	Dr. Han
 date:		18 October 2018
 *********************************************************************************/
-#pragma once
+#ifndef BFS_QUEUE_H
+#define BFS_QUEUE_H
 
 #include <iostream>
 #include <Windows.h>
-using namespace std;
 
 #include "State.h"
 #include "Piece.h"
@@ -39,3 +39,5 @@ class BFS_Queue
 		bool isNewState(Piece *, Piece *);
 		void printState(Piece *) const;
 };
+
+#endif
