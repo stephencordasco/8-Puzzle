@@ -70,6 +70,8 @@ void BFS_Queue::clear()
 
 void BFS_Queue::BFS(Piece *initialState, Piece *goalState)
 {
+	// variable used to count the number of states searched
+	int numStates = 0;
 	// add the initial state to the front of the queue
 	enqueue(initialState);
 	// stores the current state; used to check for new states and goal state found
@@ -96,6 +98,8 @@ void BFS_Queue::BFS(Piece *initialState, Piece *goalState)
 		printState(next);
 		// pop the front node
 		dequeue();
+		// increment the number of states searched
+		numStates++;
 
 		// try moves
 		left = tryLeft(left);
@@ -121,6 +125,10 @@ void BFS_Queue::BFS(Piece *initialState, Piece *goalState)
 		}
 	}
 	std::cout << "\nGoal state found!\n";
+	std::cout << "States searched: " << numStates << "\n";
+	std::cout << "Press ENTER to continue...\n";
+	std::cin.get();
+	std::cin.get();
 	clear();
 }
 

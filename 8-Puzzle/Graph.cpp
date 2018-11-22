@@ -5,15 +5,13 @@ class:		CS 481 - AI
 instructor:	Dr. Han
 date:		20 November 2018
 *********************************************************************************/
-#include "Graph.h"
+#include <Windows.h>
 
-Graph::~Graph()
-{
-	
-}
+#include "Graph.h"
 
 std::list<Graph::GraphNode*> Graph::BFS(GraphNode *ptr)
 {
+	size_t numStates = 0;
 	std::list<GraphNode*> solutionPath;
 	std::list<GraphNode*> open;
 	std::list<GraphNode*> closed;
@@ -36,6 +34,11 @@ std::list<Graph::GraphNode*> Graph::BFS(GraphNode *ptr)
 			{
 				currentChild->printState();
 				std::cout << "\nGoal state found!\n";
+				numStates = closed.size();
+				std::cout << "States searched: " << numStates << "\n";
+				std::cin.get();
+				std::cout << "Press ENTER to view Trace Path...\n";
+				std::cin.get();
 				found = true;
 				tracePath(solutionPath, currentChild);
 			}
@@ -67,9 +70,12 @@ void Graph::tracePath(std::list<Graph::GraphNode*> path, Graph::GraphNode *node)
 	std::cout << "\nTracing the path...\n";
 	while (current != nullptr)
 	{
+		Sleep(250);
 		current->printState();
 		current = current->parent;
 		path.push_back(current);
 	}
 	std::cout << "\n========== END OF TRACE ==========\n";
+	std::cout << "Press ENTER to continue...\n";
+	std::cin.get();
 }

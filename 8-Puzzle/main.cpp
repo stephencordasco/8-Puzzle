@@ -15,6 +15,7 @@ date:		18 October 2018
 #include "Graph.h"
 
 // function prototypes
+void clearScreen();
 void printMenu();
 char getMenuChoice();
 void playGame();
@@ -39,14 +40,17 @@ int main()
 		{
 			case '1':	// user plays the game
 				playGame();
+				clearScreen();
 				break;
 
 			case '2':	// AI plays the game (custom brute force)
 				playGameBF_AI();
+				clearScreen();
 				break;
 
 			case '3':	// AI plays the game using BFS
 				playGameBFS_AI();
+				clearScreen();
 				break;
 
 			case '4':	// user quits
@@ -61,6 +65,12 @@ int main()
 
 	system("pause");
 	return 0;
+}
+
+void clearScreen()
+{
+	for (int i = 0; i < 100; i++)
+		std::cout << "\n";
 }
 
 void printMenu()
@@ -127,7 +137,10 @@ void playGame()
 			// increment the final move
 			countMoves++;
 			// print the final move count
-			std::cout << "Total moves: " << countMoves << "\n\n\n";
+			std::cout << "Total moves: " << countMoves << "\n";
+			std::cout << "Press ENTER to continue...\n";
+			std::cin.get();
+			std::cin.get();
 			gameOver = true;
 		}
 		else
