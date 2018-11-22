@@ -166,24 +166,23 @@ void playGameBF_AI()
 
 void playGameBFS_AI()
 {
-	// all the pieces for the 8 puzzle game
-	Piece blank(0, true), one(1, false), two(2, false),
-		three(3, false), four(4, false), five(5, false),
-		six(6, false), seven(7, false), eight(8, false);
+	int initialState[9] = { 2, 8, 3, 1, 6, 4, 0, 7, 5 };
+	Graph::GraphNode *root = new Graph::GraphNode(initialState);
+	Graph *graph = new Graph();
+	std::list<Graph::GraphNode*> solution = graph->BFS(root);
 
-	// initialize the initial state
-	Piece initialState[9] = { two, eight, three,
-								one, six, four,
-								blank, seven, five };
-	// initialize the goal state
-	Piece goalState[9] = { one, two, three,
-								eight, blank, four,
-								seven, six, five };
-
-	// create an instance of the graph
-	Graph graph;
-	// expand the graph
-	graph.expandGraph(initialState, goalState);
+	if (solution.size() == 0)
+	{
+		for (std::list<Graph::GraphNode*>::iterator ix = solution.begin(); ix != solution.end(); ix++)
+		{
+			Graph::GraphNode *temp = *ix;
+			temp->printState();
+		}
+	}
+	else
+	{
+		std::cout << "No path to solution was found\n";
+	}
 }
 
 /*********************************************************************************
