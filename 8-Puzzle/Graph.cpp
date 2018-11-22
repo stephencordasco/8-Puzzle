@@ -7,6 +7,11 @@ date:		20 November 2018
 *********************************************************************************/
 #include "Graph.h"
 
+Graph::~Graph()
+{
+	
+}
+
 std::list<Graph::GraphNode*> Graph::BFS(GraphNode *ptr)
 {
 	std::list<GraphNode*> solutionPath;
@@ -26,7 +31,6 @@ std::list<Graph::GraphNode*> Graph::BFS(GraphNode *ptr)
 
 		for (std::list<GraphNode*>::iterator it = current->children.begin(); it != current->children.end(); it++)
 		{
-			// ===== ERROR =====
 			GraphNode *currentChild = *it;
 			if (currentChild->isGoal())
 			{
@@ -49,7 +53,6 @@ bool Graph::contains(std::list<Graph::GraphNode*> li, Graph::GraphNode *node)
 	for (std::list<GraphNode*>::iterator it = li.begin(); it != li.end(); it++)
 	{
 		GraphNode *temp = *it;
-		// ===== ERROR =====
 		if (temp->isSameState(node->state))
 			return true;
 	}
@@ -61,9 +64,12 @@ void Graph::tracePath(std::list<Graph::GraphNode*> path, Graph::GraphNode *node)
 	GraphNode *current = node;
 	path.push_back(current);
 
-	while (current->parent != nullptr)
+	std::cout << "\nTracing the path...\n";
+	while (current != nullptr)
 	{
+		current->printState();
 		current = current->parent;
 		path.push_back(current);
 	}
+	std::cout << "\n========== END OF TRACE ==========\n";
 }

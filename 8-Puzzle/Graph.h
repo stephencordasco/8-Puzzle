@@ -173,7 +173,7 @@ public:
 
 	// ===================================== GRAPH CLASS MEMBER FUNCTIONS =====================================
 	Graph() { }		// constructor
-	~Graph() { }	// desctructor
+	~Graph();		// destructor
 
 	std::list<GraphNode*> BFS(GraphNode *);
 	bool contains(std::list<GraphNode*> li, GraphNode *);

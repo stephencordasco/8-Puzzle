@@ -171,18 +171,9 @@ void playGameBFS_AI()
 	Graph *graph = new Graph();
 	std::list<Graph::GraphNode*> solution = graph->BFS(root);
 
-	if (solution.size() == 0)
-	{
-		for (std::list<Graph::GraphNode*>::iterator ix = solution.begin(); ix != solution.end(); ix++)
-		{
-			Graph::GraphNode *temp = *ix;
-			temp->printState();
-		}
-	}
-	else
-	{
-		std::cout << "No path to solution was found\n";
-	}
+	// deallocate the memory
+	delete root;
+	delete graph;
 }
 
 /*********************************************************************************
