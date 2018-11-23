@@ -13,17 +13,15 @@ date:		18 October 2018
 class Piece
 {
 	private:
-		friend class State;
-		// every piece has a value
-		int value;
-		// every piece has a boolean; true for blank false for other
-		bool blank;
+		friend class State;		// forward declaration
+		int value;				// store the value of the piece
+		bool blank;				// used to determine if a piece is blank or not
+
 	public:
-		// constructors
-		Piece();
-		Piece(int aValue, bool aBlank);
+		Piece();				// default constructor
+		Piece(int , bool );		// overloaded constructor
 		// destructor
-		~Piece();
+		~Piece();				// destructor
 
 		// Setters
 		void setValue(int aValue);

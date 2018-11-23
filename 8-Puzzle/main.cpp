@@ -25,39 +25,45 @@ void printState(Piece arr[]);
 void movePiece(Piece arr[], char choice);
 bool checkGoalState(Piece state[], Piece goal[], int arrSize);
 
+
+
+
 int main()
 {
-	// user choice
+	// variable used to store user choice
 	char menuChoice = ' ';
+
 	// begin program loop
 	do
 	{
-		// print the menu
+		// print menu
 		printMenu();
+		// store user choice
 		menuChoice = getMenuChoice();
-		// get the menuChoice
+
+		// get menuChoice
 		switch (menuChoice)
 		{
-			case '1':	// user plays the game
+			case '1':			// user plays game
 				playGame();
 				clearScreen();
 				break;
 
-			case '2':	// AI plays the game (custom brute force)
+			case '2':			// AI plays game (custom brute force search)
 				playGameBF_AI();
 				clearScreen();
 				break;
 
-			case '3':	// AI plays the game using BFS
+			case '3':			// AI plays game using BFS (breadth-first search)
 				playGameBFS_AI();
 				clearScreen();
 				break;
 
-			case '4':	// user quits
+			case '4':			// user quits
 				std::cout << "Goodbye!\n\n";
 				break;
 
-			default:
+			default:			// user entered an invalid character
 				std::cout << "\nINVALID MENU CHOICE\n";
 		}
 
@@ -67,12 +73,22 @@ int main()
 	return 0;
 }
 
+/*********************************************************************************
+name:		clearScreen
+parameters:	none
+purpose:	prints 100 new lines to "refresh" the screen
+*********************************************************************************/
 void clearScreen()
 {
 	for (int i = 0; i < 100; i++)
 		std::cout << "\n";
 }
 
+/*********************************************************************************
+name:		printMenu
+parameters:	none
+purpose:	prints menu
+*********************************************************************************/
 void printMenu()
 {
 	std::cout << "\n==================== 8-Puzzle ====================\n";
@@ -83,39 +99,52 @@ void printMenu()
 	std::cout << "==================================================\n";
 }
 
+/*********************************************************************************
+name:		getMenuChoice
+parameters:	none
+purpose:	gets input from keyboard; returns it to caller
+*********************************************************************************/
 char getMenuChoice()
 {
-	std::cout << "Enter a menu choice: ";
+	// variable used to store user choice
 	char menuChoice = ' ';
+	// prompt user
+	std::cout << "Enter a menu choice: ";
 	std::cin >> menuChoice;
 
 	return menuChoice;
 }
 
+/*********************************************************************************
+name:		playGame
+parameters:	none
+purpose:	allows the user to play game; generates a goal and an initial state;
+			begins game loop
+*********************************************************************************/
 void playGame()
 {
-	// determines when the game is done
+	// determines when game is done
 	bool gameOver = false;
 	// store user move choice
 	char moveChoice = ' ';
-	// counts the moves taken to find the goal state
+	// counts moves taken to find goal state
 	int countMoves = 0;
 
-	// all the pieces for the 8 puzzle game
+	// all pieces for 8 puzzle game
 	Piece blank(0, true), one(1, false), two(2, false),
 		three(3, false), four(4, false), five(5, false),
 		six(6, false), seven(7, false), eight(8, false);
 
-	// initialize the initial state
+	// initialize initial state
 	Piece initialState[9] = { two, eight, three,
 								one, six, four,
 								blank, seven, five };
-	// initialize the goal state
+	// initialize goal state
 	Piece goalState[9] = { one, two, three,
 								eight, blank, four,
 								seven, six, five };
 
-	// print the initial state and the goal state
+	// print initial state and goal state
 	std::cout << "\nGoal State\n";
 	printState(goalState);
 	std::cout << "Initial State\n";
@@ -123,20 +152,22 @@ void playGame()
 
 	while (!gameOver)
 	{
-		// get input from the user
+		// get input from user
 		std::cout << "Enter a move: ";
 		std::cin >> moveChoice;
-		// move the piece
+
+		// move piece
 		movePiece(initialState, moveChoice);
-		// print the new state
+		// print new state
 		printState(initialState);
+
 		// check for goal state
 		if (checkGoalState(initialState, goalState, 9))
 		{
 			std::cout << "Goal state found!\n";
-			// increment the final move
+			// increment final move
 			countMoves++;
-			// print the final move count
+			// print final move count
 			std::cout << "Total moves: " << countMoves << "\n";
 			std::cout << "Press ENTER to continue...\n";
 			std::cin.get();
@@ -145,26 +176,31 @@ void playGame()
 		}
 		else
 		{
-			// increment the moves count
+			// increment moves count
 			countMoves++;
-			// print the moves taken
+			// print moves taken
 			std::cout << "Move count: " << countMoves << "\n\n";
 		}
 	}
 }
 
+/*********************************************************************************
+name:		playGameBF_AI
+parameters:	none
+purpose:	AI using custom brute force search algorithm plays game
+*********************************************************************************/
 void playGameBF_AI()
 {
-	// all the pieces for the 8 puzzle game
+	// all pieces for 8 puzzle game
 	Piece blank(0, true), one(1, false), two(2, false),
 		three(3, false), four(4, false), five(5, false),
 		six(6, false), seven(7, false), eight(8, false);
 
-	// initialize the initial state
+	// initialize initial state
 	Piece initialState[9] = { two, eight, three,
 								one, six, four,
 								blank, seven, five };
-	// initialize the goal state
+	// initialize goal state
 	Piece goalState[9] = { one, two, three,
 								eight, blank, four,
 								seven, six, five };
@@ -174,17 +210,27 @@ void playGameBF_AI()
 
 	// begin search
 	std::cout << "Current State\n";
-	bfs_queue.BFS(initialState, goalState);
+	bfs_queue.bruteForceSearch(initialState, goalState);
 }
 
+/*********************************************************************************
+name:		playGameBFS_AI
+parameters:	none
+purpose:	AI using BFS (breadth-first search) algorithm plays game
+*********************************************************************************/
 void playGameBFS_AI()
 {
+	// create an initial state
 	int initialState[9] = { 2, 8, 3, 1, 6, 4, 0, 7, 5 };
+
+	// create a new graph node with initial state
 	Graph::GraphNode *root = new Graph::GraphNode(initialState);
+	// create a new graph
 	Graph *graph = new Graph();
+	// begin graph expansion and search
 	std::list<Graph::GraphNode*> solution = graph->BFS(root);
 
-	// deallocate the memory
+	// deallocate memory
 	delete root;
 	delete graph;
 }
@@ -192,14 +238,14 @@ void playGameBFS_AI()
 /*********************************************************************************
 name:		printState
 parameters:	Piece object array
-purpose:	prints the state of the Piece object calling the function
+purpose:	prints state of Piece object
 *********************************************************************************/
 void printState(Piece arr[])
 {
 	// helper variable
 	int count = 0;
 
-	// display the initial state
+	// display state
 	std::cout << "-------\n";
 	for (int i = 0; i < 9; i++)
 	{
@@ -217,10 +263,10 @@ void printState(Piece arr[])
 /*********************************************************************************
 name:		movePiece
 parameters:	Piece object array, int type
-purpose:	checks the input from the user; if valid continue else return
+purpose:	checks input from user; if valid continue else return
 			checks for a blank piece
 			checks for invalid move; if invalid return
-			moves the piece
+			moves piece
 *********************************************************************************/
 void movePiece(Piece arr[], char choice)
 {
@@ -238,7 +284,7 @@ void movePiece(Piece arr[], char choice)
 						std::cout << "========== INVALID MOVE ==========\n";
 						return;
 					}
-					// move the piece
+					// move piece
 					Piece temp = arr[i - 1];
 					arr[i - 1].setValue(0);
 					arr[i - 1].setBlank(true);
@@ -259,7 +305,7 @@ void movePiece(Piece arr[], char choice)
 						std::cout << "========== INVALID MOVE ==========\n";
 						return;
 					}
-					// move the piece
+					// move piece
 					Piece temp = arr[i + 1];
 					arr[i + 1].setValue(0);
 					arr[i + 1].setBlank(true);
@@ -282,7 +328,7 @@ void movePiece(Piece arr[], char choice)
 						std::cout << "========== INVALID MOVE ==========\n";
 						return;
 					}
-					// move the piece
+					// move piece
 					Piece temp = arr[i - 3];
 					arr[i - 3].setValue(0);
 					arr[i - 3].setBlank(true);
@@ -303,7 +349,7 @@ void movePiece(Piece arr[], char choice)
 						std::cout << "========== INVALID MOVE ==========\n";
 						return;
 					}
-					// move the piece
+					// move piece
 					Piece temp = arr[i + 3];
 					arr[i + 3].setValue(0);
 					arr[i + 3].setBlank(true);
@@ -323,8 +369,8 @@ void movePiece(Piece arr[], char choice)
 /*********************************************************************************
 name:		checkGoalState
 parameters: Piece object array, Piece object array, int type
-purpose:	checks the current state against the goal state; if the
-			current state is different from the goal state return false otherwise
+purpose:	checks current state against goal state; if
+			current state is different from goal state return false otherwise
 			return true
 *********************************************************************************/
 bool checkGoalState(Piece state[], Piece goal[], int arrSize)

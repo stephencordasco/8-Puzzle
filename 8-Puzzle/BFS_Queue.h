@@ -17,21 +17,21 @@ date:		18 October 2018
 class BFS_Queue
 {
 	private:
-		// private member variables
-		State *front;
-		State *end;
+		State *front;			// pointer to the front of the queue
+		State *end;				// pointer to the end of the queue
+
 	public:
-		// constructor
-		BFS_Queue();
-		// destructor
-		~BFS_Queue();
+		BFS_Queue();			// default constructor
+		~BFS_Queue();			// destructor
 
 		// public member functions
 		void enqueue(Piece *);
 		void dequeue();
 		bool isEmpty() const;
 		void clear();
-		void BFS(Piece *, Piece *);
+		void bruteForceSearch(Piece *, Piece *);
+
+		// helper functions
 		Piece *tryLeft(Piece *);
 		Piece *tryUp(Piece *);
 		Piece *tryRight(Piece *);
