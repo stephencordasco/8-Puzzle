@@ -100,6 +100,21 @@ void printMenu()
 }
 
 /*********************************************************************************
+name:		difficultyMenu
+parameters:	none
+purpose:	prints difficulty menu
+*********************************************************************************/
+void difficultyMenu()
+{
+	std::cout << "\n================= CHOOSE DIFFICULTY ==============\n";
+	std::cout << "1.) Standard\n";
+	std::cout << "2.) Easy\n";
+	std::cout << "3.) Medium\n";
+	std::cout << "4.) Hard\n";
+	std::cout << "==================================================\n";
+}
+
+/*********************************************************************************
 name:		getMenuChoice
 parameters:	none
 purpose:	gets input from keyboard; returns it to caller
@@ -221,10 +236,44 @@ purpose:	AI using BFS (breadth-first search) algorithm plays game
 void playGameBFS_AI()
 {
 	// create an initial state
-	int initialState[9] = { 2, 8, 3, 1, 6, 4, 0, 7, 5 };
+	int initialState[9] =		{ 2, 8, 3, 1, 6, 4, 0, 7, 5 };			// MAIN test case
+	int initialStateEasy[9] =	{ 1, 2, 3, 0, 8, 4, 7, 6, 5 };			// EASY test case
+	int initialStateMedium[9] = { 0, 8, 3, 2, 6, 4, 1, 7, 5 };			// MEDIUM test case
+	int initialStateHard[9] =	{ 8, 3, 4, 2, 6, 5, 1, 7, 0 };			// HARD test case
 
-	// create a new graph node with initial state
-	Graph::GraphNode *root = new Graph::GraphNode(initialState);
+	// create a new graph node
+	Graph::GraphNode *root = nullptr;
+
+	// print the difficulty menu
+	difficultyMenu();
+	char choice = getMenuChoice();
+
+	switch (choice)
+	{
+		case '1':
+			// initial state
+			root = new Graph::GraphNode(initialState);
+			break;
+
+		case '2':
+			// set initial state
+			root = new Graph::GraphNode(initialStateEasy);
+			break;
+
+		case '3':
+			// set initial state
+			root = new Graph::GraphNode(initialStateMedium);
+			break;
+
+		case '4':
+			// set initial state
+			root = new Graph::GraphNode(initialStateHard);
+			break;
+
+		default:
+			std::cout << "\n===== INVALID SELECTION =====\n";
+	}
+
 	// create a new graph
 	Graph *graph = new Graph();
 	// begin graph expansion and search
