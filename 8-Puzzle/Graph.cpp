@@ -37,7 +37,7 @@ void Graph::BFS(GraphNode *ptr)
 		// expand the graph
 		current->expandGraph();
 		// print the new states
-		current->printState();
+		//current->printState();
 
 		for (std::list<GraphNode*>::iterator it = current->children.begin(); it != current->children.end(); it++)
 		{
@@ -96,7 +96,7 @@ void Graph::tracePath(Graph::GraphNode *node)
 	std::cout << "\nTracing the path...\n";
 	while (current != nullptr)
 	{
-		Sleep(250);
+		Sleep(750);
 		current->printState();
 		current = current->parent;
 	}
@@ -117,7 +117,7 @@ void Graph::A_Star(GraphNode *ptr)
 	std::list<GraphNode*> closed;			// list to store the searched nodes
 	bool found = false;						// value to determine if goal has been found or not
 
-	// push the first node onto opne
+	// push the first node onto open
 	open.push_back(ptr);
 
 	// begin search

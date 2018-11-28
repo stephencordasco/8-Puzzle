@@ -122,6 +122,7 @@ void difficultyMenu()
 	std::cout << "2.) Easy\n";
 	std::cout << "3.) Medium\n";
 	std::cout << "4.) Hard\n";
+	std::cout << "5.) Custom\n";
 	std::cout << "==================================================\n";
 }
 
@@ -251,6 +252,7 @@ void playGameBFS_AI()
 	int initialStateEasy[9] =	{ 1, 2, 3, 0, 8, 4, 7, 6, 5 };			// EASY test case
 	int initialStateMedium[9] = { 0, 8, 3, 2, 6, 4, 1, 7, 5 };			// MEDIUM test case
 	int initialStateHard[9] =	{ 8, 3, 4, 2, 6, 5, 1, 7, 0 };			// HARD test case
+	int initialStateCustom[9] = { 2, 8, 4, 0, 3, 5, 1, 6, 7 };			// CUSTOM test case
 
 	// create a new graph node
 	Graph::GraphNode *root = nullptr;
@@ -279,6 +281,11 @@ void playGameBFS_AI()
 		case '4':
 			// HARD
 			root = new Graph::GraphNode(initialStateHard);
+			break;
+
+		case '5':
+			// CUSTOM
+			root = new Graph::GraphNode(initialStateCustom);
 			break;
 
 		default:
