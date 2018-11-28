@@ -28,7 +28,7 @@ bool checkGoalState(Piece state[], Piece goal[], int arrSize);
 
 
 
-
+// ==================================== MAIN FUNCTION ============================
 int main()
 {
 	// variable used to store user choice

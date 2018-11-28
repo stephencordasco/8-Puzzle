@@ -6,6 +6,8 @@ instructor:	Dr. Han
 date:		20 November 2018
 *********************************************************************************/
 #include <Windows.h>
+#include <cstdio>
+#include <ctime>
 
 #include "Graph.h"
 
@@ -21,8 +23,15 @@ void Graph::BFS(GraphNode *ptr)
 	std::list<GraphNode*> closed;			// list to store the searched nodes
 	bool found = false;						// value to determine if goal has been found or not
 
+	clock_t start;							// used to keep time
+	double duration;						// used to print total elapsed time
+
 	// push the first node onto opne
 	open.push_back(ptr);
+
+	// start the clock
+	start = clock();
+	std::cout << "\nSearching...\n";
 
 	// begin search
 	while (open.size() > 0 && !found)
@@ -48,15 +57,19 @@ void Graph::BFS(GraphNode *ptr)
 			if (currentChild->isGoal())
 			{
 				// print goal state
-				currentChild->printState();
+				//currentChild->printState();
 				std::cout << "\nGoal state found!\n";
 				// print number of states searched
 				numStates = closed.size();
 				std::cout << "States searched: " << numStates << "\n";
+				// calculate the total time elapsed and print it
+				duration = (clock() - start) / (double)CLOCKS_PER_SEC;
+				std::cout << "\nTotal search time: " << duration << "\n";
 				std::cin.get();
-				std::cout << "Press ENTER to view Trace Path...\n";
+				std::cout << "\nPress ENTER to view Trace Path...\n";
 				std::cin.get();
 				found = true;
+
 				// trace the solution path
 				tracePath(currentChild);
 			}
@@ -96,7 +109,7 @@ void Graph::tracePath(Graph::GraphNode *node)
 	std::cout << "\nTracing the path...\n";
 	while (current != nullptr)
 	{
-		Sleep(750);
+		Sleep(500);
 		current->printState();
 		current = current->parent;
 	}
@@ -117,8 +130,15 @@ void Graph::A_Star(GraphNode *ptr)
 	std::list<GraphNode*> closed;			// list to store the searched nodes
 	bool found = false;						// value to determine if goal has been found or not
 
+	clock_t start;							// used to keep time
+	double duration;						// used to print total elapsed time
+
 	// push the first node onto open
 	open.push_back(ptr);
+
+	// start the clock
+	start = clock();
+	std::cout << "\nSearching...\n";
 
 	// begin search
 	while (open.size() > 0 && !found)
@@ -144,15 +164,19 @@ void Graph::A_Star(GraphNode *ptr)
 			if (currentChild->isGoal())
 			{
 				// print goal state
-				currentChild->printState();
+				//currentChild->printState();
 				std::cout << "\nGoal state found!\n";
 				// print number of states searched
 				numStates = closed.size();
 				std::cout << "States searched: " << numStates << "\n";
+				// calculate the total time elapsed and print it
+				duration = (clock() - start) / (double)CLOCKS_PER_SEC;
+				std::cout << "\nTotal search time: " << duration << "\n";
 				std::cin.get();
 				std::cout << "Press ENTER to view Trace Path...\n";
 				std::cin.get();
 				found = true;
+
 				// trace the solution path
 				tracePath(currentChild);
 			}
