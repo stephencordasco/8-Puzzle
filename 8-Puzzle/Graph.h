@@ -24,6 +24,7 @@ public:
 
 		int state[9];					// integer array representing a state
 		int blank = 0;					// index of blank piece
+		int heuristic = 0;				// tiles out of place
 		GraphNode *parent;				// pointer to parent node
 		std::list<GraphNode*> children;	// list of GraphNodes representing children of current GraphNode
 
@@ -243,9 +244,12 @@ public:
 	Graph()	{ }														// constructor
 	~Graph() { }													// destructor
 
-	std::list<GraphNode*> BFS(GraphNode *);							// Breadth-First Search algorithm
+	void BFS(GraphNode *);											// Breadth-First Search algorithm
 	bool contains(std::list<GraphNode*> li, GraphNode *);			// checks open and closed lists
-	void tracePath(std::list<GraphNode*> path, GraphNode *node);	// traces the path from goal to initial state
+	void tracePath(GraphNode *node);								// traces the path from goal to initial state
+
+	void A_Star(GraphNode *);										// A* (Best-First Search) algorithm
+	int tilesOutOfPlace(int aState[9]);								// return the heuristic value for a GraphNode
 };
 
 #endif

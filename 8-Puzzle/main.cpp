@@ -21,6 +21,7 @@ char getMenuChoice();
 void playGame();
 void playGameBF_AI();
 void playGameBFS_AI();
+void playGameA_Star_AI();
 void printState(Piece arr[]);
 void movePiece(Piece arr[], char choice);
 bool checkGoalState(Piece state[], Piece goal[], int arrSize);
@@ -59,15 +60,24 @@ int main()
 				clearScreen();
 				break;
 
-			case '4':			// user quits
+			case '4':
+				playGameA_Star_AI();
+				clearScreen();
+				break;
+
+			case '5':			// user quits
 				std::cout << "Goodbye!\n\n";
 				break;
 
 			default:			// user entered an invalid character
 				std::cout << "\nINVALID MENU CHOICE\n";
+				std::cout << "Press ENTER to continue...\n";
+				std::cin.get();
+				std::cin.get();
+				clearScreen();
 		}
 
-	} while (menuChoice != '4');
+	} while (menuChoice != '5');
 
 	system("pause");
 	return 0;
@@ -95,7 +105,8 @@ void printMenu()
 	std::cout << "1.) Play 8-Puzzle\n";
 	std::cout << "2.) AI Plays 8-Puzzle (Using Custom Brute Force)\n";
 	std::cout << "3.) AI Plays 8-Puzzle (Using BFS)\n";
-	std::cout << "4.) Exit\n";
+	std::cout << "4.) AI Plays 8-Puzzle (Using A*)\n";
+	std::cout << "5.) Exit\n";
 	std::cout << "==================================================\n";
 }
 
@@ -256,32 +267,51 @@ void playGameBFS_AI()
 			break;
 
 		case '2':
-			// set initial state
+			// EASY
 			root = new Graph::GraphNode(initialStateEasy);
 			break;
 
 		case '3':
-			// set initial state
+			// MEDIUM
 			root = new Graph::GraphNode(initialStateMedium);
 			break;
 
 		case '4':
-			// set initial state
+			// HARD
 			root = new Graph::GraphNode(initialStateHard);
 			break;
 
 		default:
 			std::cout << "\n===== INVALID SELECTION =====\n";
+			std::cout << "Press ENTER to return to menu...\n";
+			std::cin.get();
+			std::cin.get();
+			return;
 	}
 
 	// create a new graph
 	Graph *graph = new Graph();
 	// begin graph expansion and search
-	std::list<Graph::GraphNode*> solution = graph->BFS(root);
+	graph->BFS(root);
 
 	// deallocate memory
 	delete root;
 	delete graph;
+}
+
+/*********************************************************************************
+name:		playGameA_Star_AI
+parameters:	none
+purpose:	AI attemps to solve puzzle using A* search algorithm
+*********************************************************************************/
+void playGameA_Star_AI()
+{
+	// create an initial state
+	int initialState[9] = { 2, 8, 3, 1, 6, 4, 0, 7, 5 };			// MAIN test case
+
+	Graph::GraphNode *root = new Graph::GraphNode(initialState);
+	Graph *graph = new Graph();
+	graph->A_Star(root);
 }
 
 /*********************************************************************************
