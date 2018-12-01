@@ -22,9 +22,9 @@ public:
 
 		// ===================================== GRAPH NODE MEMBER VALUES =====================================
 
+		int heuristic = 0;				// tiles out of place
 		int state[9];					// integer array representing a state
 		int blank = 0;					// index of blank piece
-		int heuristic = 0;				// tiles out of place
 		GraphNode *parent;				// pointer to parent node
 		std::list<GraphNode*> children;	// list of GraphNodes representing children of current GraphNode
 
@@ -250,7 +250,8 @@ public:
 
 	void A_Star(GraphNode *);										// A* (Best-First Search) algorithm
 	int tilesOutOfPlace(int aState[9]);								// return the heuristic value for a GraphNode
-	std::list<GraphNode*> reorder(std::list<GraphNode*>);			// reorder a list based of heuristic value
+	int pathLength(GraphNode *node);								// return the path length of the GraphNode
+	void reorder(std::list<GraphNode*>&);							// reorder a list based of heuristic value
 };
 
 #endif

@@ -197,23 +197,82 @@ void Graph::A_Star(GraphNode *ptr)
 				// child is already on open
 				else if (contains(open, currentChild))
 				{
-					// if child was reached by a shorter path
+					// pointer to node found in open
+					GraphNode *temp = nullptr;
 
+					// traverse open
+					for (std::list<GraphNode*>::iterator it = open.begin(); it != open.end(); it++)
+					{
+						// pointer to GraphNodes in open
+						GraphNode *t = *it;
+
+						// check if same node is found
+						if (t->isSameState(currentChild->state))
+						{
+							std::cout << "\nFound the node in open...\n";
+							temp = t;
+						}
+					}
+
+					// if child was reached by a shorter path
+					if (pathLength(temp) < pathLength(currentChild))
+					{
+						std::cout << "\nGiving the state on open the shorter path...\n";
+
+					}
 				}
 				// child is already on open
 				else if (contains(closed, currentChild))
 				{
-					// if child was reached by a shorter path
+					// pointer to node found in closed
+					GraphNode *temp = nullptr;
 
+					// traverse closed
+					for (std::list<GraphNode*>::iterator it = closed.begin(); it != closed.end(); it++)
+					{
+						// pointer to GraphNodes in closed
+						GraphNode *t = *it;
+
+						// check if same node is found
+						if (t->isSameState(currentChild->state))
+						{
+							std::cout << "\nFound the node in closed...\n";
+							temp = t;
+						}
+					}
+
+					// if child was reached by a shorter path
+					if (pathLength(temp) < pathLength(currentChild))
+					{
+						std::cout << "\nAdding child to open...\n";
+
+					}
 				}
 			}
 		}
+
 		// push node onto closed list
 		closed.push_back(current);
 
 		// reorder states on open by heuristic merit
 
 	}
+}
+
+int Graph::pathLength(GraphNode *node)
+{
+	// pointer to the parameter
+	GraphNode *current = node;
+	// variable used to keep count of path length
+	int pLength = 1;
+
+	while (current != nullptr)
+	{
+		pLength++;
+		current = current->parent;
+	}
+
+	return pLength;
 }
 
 /*********************************************************************************
@@ -239,12 +298,11 @@ int Graph::tilesOutOfPlace(int aState[9])
 
 /*********************************************************************************
 name:		reorder
-parameters:	list of GraphNode pointers
+parameters:	reference to a list of GraphNode pointers
 purpose:	reorders a list based off heuristic value of nodes
 *********************************************************************************/
-std::list<Graph::GraphNode*> Graph::reorder(std::list<GraphNode*> aList)
+void Graph::reorder(std::list<GraphNode*> &aList)
 {
 	// reorder the graph based off heuristic value of nodes
 
-	return aList;
 }
