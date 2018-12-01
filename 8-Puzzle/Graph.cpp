@@ -56,18 +56,21 @@ void Graph::BFS(GraphNode *ptr)
 			// check for goal state
 			if (currentChild->isGoal())
 			{
-				// print goal state
-				//currentChild->printState();
+				// print success message
 				std::cout << "\nGoal state found!\n";
+
 				// print number of states searched
 				numStates = closed.size();
 				std::cout << "States searched: " << numStates << "\n";
+
 				// calculate the total time elapsed and print it
 				duration = (clock() - start) / (double)CLOCKS_PER_SEC;
 				std::cout << "\nTotal search time: " << duration << "\n";
 				std::cin.get();
 				std::cout << "\nPress ENTER to view Trace Path...\n";
 				std::cin.get();
+
+				// set found flag true
 				found = true;
 
 				// trace the solution path
@@ -145,51 +148,71 @@ void Graph::A_Star(GraphNode *ptr)
 	{
 		// pointer to first node
 		GraphNode *current = *open.begin();
-		// push node onto closed list
-		closed.push_back(current);
+
 		// pop front of open list
 		open.pop_front();
 
-		// expand the graph
-		current->expandGraph();
-		// print the new states
-		current->printState();
-
-		for (std::list<GraphNode*>::iterator it = current->children.begin(); it != current->children.end(); it++)
+		// check if current is goal
+		if (current->isGoal())
 		{
-			// pointer to children of current
-			GraphNode *currentChild = *it;
+			// print success message
+			std::cout << "\nGoal state found!\n";
 
-			// check for goal state
-			if (currentChild->isGoal())
+			// print number of states searched
+			numStates = closed.size();
+			std::cout << "States searched: " << numStates << "\n";
+
+			// calculate the total time elapsed and print it
+			duration = (clock() - start) / (double)CLOCKS_PER_SEC;
+			std::cout << "\nTotal search time: " << duration << "\n";
+			std::cin.get();
+			std::cout << "Press ENTER to view Trace Path...\n";
+			std::cin.get();
+
+			// set found flag to true
+			found = true;
+
+			// trace the solution path
+			tracePath(current);
+		}
+		else
+		{
+			// generate children of current
+			current->expandGraph();
+
+			// iterate through each child of current
+			for (std::list<GraphNode*>::iterator it = current->children.begin(); it != current->children.end(); it++)
 			{
-				// print goal state
-				//currentChild->printState();
-				std::cout << "\nGoal state found!\n";
-				// print number of states searched
-				numStates = closed.size();
-				std::cout << "States searched: " << numStates << "\n";
-				// calculate the total time elapsed and print it
-				duration = (clock() - start) / (double)CLOCKS_PER_SEC;
-				std::cout << "\nTotal search time: " << duration << "\n";
-				std::cin.get();
-				std::cout << "Press ENTER to view Trace Path...\n";
-				std::cin.get();
-				found = true;
+				// pointer to children of current
+				GraphNode *currentChild = *it;
 
-				// trace the solution path
-				tracePath(currentChild);
-			}
+				// child is not on open or closed
+				if (!contains(open, currentChild) && !contains(closed, currentChild))
+				{
+					// assign child a heuristic value
+					currentChild->heuristic = tilesOutOfPlace(currentChild->state);
+					// push child on to open
+					open.push_back(currentChild);
+				}
+				// child is already on open
+				else if (contains(open, currentChild))
+				{
+					// if child was reached by a shorter path
 
-			// check if child is on open or closed
-			if (!contains(open, currentChild) && !contains(closed, currentChild))
-			{
-				// push child on to open
-				open.push_back(currentChild);
-				// assign child a heuristic value
-				currentChild->heuristic = tilesOutOfPlace(currentChild->state);
+				}
+				// child is already on open
+				else if (contains(closed, currentChild))
+				{
+					// if child was reached by a shorter path
+
+				}
 			}
 		}
+		// push node onto closed list
+		closed.push_back(current);
+
+		// reorder states on open by heuristic merit
+
 	}
 }
 
@@ -212,4 +235,16 @@ int Graph::tilesOutOfPlace(int aState[9])
 	}
 
 	return count;
+}
+
+/*********************************************************************************
+name:		reorder
+parameters:	list of GraphNode pointers
+purpose:	reorders a list based off heuristic value of nodes
+*********************************************************************************/
+std::list<Graph::GraphNode*> Graph::reorder(std::list<GraphNode*> aList)
+{
+	// reorder the graph based off heuristic value of nodes
+
+	return aList;
 }

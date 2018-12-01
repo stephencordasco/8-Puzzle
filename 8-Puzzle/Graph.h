@@ -250,6 +250,7 @@ public:
 
 	void A_Star(GraphNode *);										// A* (Best-First Search) algorithm
 	int tilesOutOfPlace(int aState[9]);								// return the heuristic value for a GraphNode
+	std::list<GraphNode*> reorder(std::list<GraphNode*>);			// reorder a list based of heuristic value
 };
 
 #endif
