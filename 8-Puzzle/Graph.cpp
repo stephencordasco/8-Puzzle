@@ -209,7 +209,6 @@ void Graph::A_Star(GraphNode *ptr)
 						// check if same node is found
 						if (t->isSameState(currentChild->state))
 						{
-							std::cout << "\nFound the node in open...\n";
 							temp = t;
 						}
 					}
@@ -217,8 +216,7 @@ void Graph::A_Star(GraphNode *ptr)
 					// if child was reached by a shorter path
 					if (pathLength(temp) < pathLength(currentChild))
 					{
-						std::cout << "\nGiving the state on open the shorter path...\n";
-
+						currentChild = temp;
 					}
 				}
 				// child is already on open
@@ -236,7 +234,6 @@ void Graph::A_Star(GraphNode *ptr)
 						// check if same node is found
 						if (t->isSameState(currentChild->state))
 						{
-							std::cout << "\nFound the node in closed...\n";
 							temp = t;
 						}
 					}
@@ -244,8 +241,8 @@ void Graph::A_Star(GraphNode *ptr)
 					// if child was reached by a shorter path
 					if (pathLength(temp) < pathLength(currentChild))
 					{
-						std::cout << "\nAdding child to open...\n";
-
+						closed.remove(currentChild);
+						open.push_back(currentChild);
 					}
 				}
 			}
@@ -255,7 +252,7 @@ void Graph::A_Star(GraphNode *ptr)
 		closed.push_back(current);
 
 		// reorder states on open by heuristic merit
-
+		reorder(open);
 	}
 }
 
@@ -304,5 +301,36 @@ purpose:	reorders a list based off heuristic value of nodes
 void Graph::reorder(std::list<GraphNode*> &aList)
 {
 	// reorder the graph based off heuristic value of nodes
+	GraphNode *temp = nullptr;
+	bool swap = false;
+	int count;
 
+	if (aList.size() < 2)
+	{
+		return;
+	}
+	else
+	{
+		do
+		{
+			swap = false;
+			count = 1;
+
+			for (std::list<GraphNode*>::iterator it = aList.begin(); it != aList.end(); it++)
+			{
+				GraphNode *val1 = *it;
+				GraphNode *val2 = *it;
+
+				if (val1->heuristic > val2->heuristic)
+				{
+					temp = val1;
+					val1 = val2;
+					val2 = temp;
+					swap = true;
+				}
+
+				count++;
+			}
+		} while (swap);
+	}
 }
