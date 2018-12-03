@@ -31,7 +31,7 @@ void Graph::BFS(GraphNode *ptr)
 
 	// start the clock
 	start = clock();
-	std::cout << "\nSearching...\n";
+	std::cout << "\nSearching...";
 
 	// begin search
 	while (open.size() > 0 && !found)
@@ -57,7 +57,7 @@ void Graph::BFS(GraphNode *ptr)
 			if (currentChild->isGoal())
 			{
 				// print success message
-				std::cout << "\nGoal state found!\n";
+				std::cout << "\n\nGoal state found!\n";
 
 				// print number of states searched
 				numStates = closed.size();
@@ -67,7 +67,7 @@ void Graph::BFS(GraphNode *ptr)
 				duration = (clock() - start) / (double)CLOCKS_PER_SEC;
 				std::cout << "\nTotal search time: " << duration << "\n";
 				std::cin.get();
-				std::cout << "\nPress ENTER to view Trace Path...\n";
+				std::cout << "\nPress ENTER to view Trace Path...";
 				std::cin.get();
 
 				// set found flag true
@@ -117,7 +117,7 @@ void Graph::tracePath(Graph::GraphNode *node)
 		current = current->parent;
 	}
 	std::cout << "\n========== END OF TRACE ==========\n";
-	std::cout << "Press ENTER to continue...\n";
+	std::cout << "Press ENTER to continue...";
 	std::cin.get();
 }
 
@@ -141,7 +141,7 @@ void Graph::A_Star(GraphNode *ptr)
 
 	// start the clock
 	start = clock();
-	std::cout << "\nSearching...\n";
+	std::cout << "\nSearching...";
 
 	// begin search
 	while (open.size() > 0 && !found)
@@ -156,7 +156,7 @@ void Graph::A_Star(GraphNode *ptr)
 		if (current->isGoal())
 		{
 			// print success message
-			std::cout << "\nGoal state found!\n";
+			std::cout << "\n\nGoal state found!\n";
 
 			// print number of states searched
 			numStates = closed.size();
@@ -166,7 +166,7 @@ void Graph::A_Star(GraphNode *ptr)
 			duration = (clock() - start) / (double)CLOCKS_PER_SEC;
 			std::cout << "\nTotal search time: " << duration << "\n";
 			std::cin.get();
-			std::cout << "Press ENTER to view Trace Path...\n";
+			std::cout << "Press ENTER to view Trace Path...";
 			std::cin.get();
 
 			// set found flag to true

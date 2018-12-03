@@ -175,7 +175,7 @@ void BFS_Queue::bruteForceSearch(Piece *initialState, Piece *goalState)
 	std::cout << "\nGoal state found!\n";
 	// print number of states searched
 	std::cout << "States searched: " << numStates << "\n";
-	std::cout << "Press ENTER to continue...\n";
+	std::cout << "Press ENTER to continue...";
 	std::cin.get();
 	std::cin.get();
 }
