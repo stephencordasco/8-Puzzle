@@ -108,6 +108,7 @@ purpose:	traces the path from goal to initial state
 void Graph::tracePath(Graph::GraphNode *node)
 {
 	GraphNode *current = node;
+	int pathLength = 0;
 
 	std::cout << "\nTracing the path...\n";
 	while (current != nullptr)
@@ -115,7 +116,9 @@ void Graph::tracePath(Graph::GraphNode *node)
 		Sleep(500);
 		current->printState();
 		current = current->parent;
+		pathLength++;
 	}
+	std::cout << "\nPath Length: " << pathLength << "\n";
 	std::cout << "\n========== END OF TRACE ==========\n";
 	std::cout << "Press ENTER to continue...";
 	std::cin.get();
@@ -252,7 +255,7 @@ void Graph::A_Star(GraphNode *ptr)
 		closed.push_back(current);
 
 		// reorder states on open by heuristic merit
-		reorder(open);
+		open.sort();
 	}
 }
 
@@ -291,46 +294,4 @@ int Graph::tilesOutOfPlace(int aState[9])
 	}
 
 	return count;
-}
-
-/*********************************************************************************
-name:		reorder
-parameters:	reference to a list of GraphNode pointers
-purpose:	reorders a list based off heuristic value of nodes
-*********************************************************************************/
-void Graph::reorder(std::list<GraphNode*> &aList)
-{
-	// reorder the graph based off heuristic value of nodes
-	GraphNode *temp = nullptr;
-	bool swap = false;
-	int count;
-
-	if (aList.size() < 2)
-	{
-		return;
-	}
-	else
-	{
-		do
-		{
-			swap = false;
-			count = 1;
-
-			for (std::list<GraphNode*>::iterator it = aList.begin(); it != aList.end(); it++)
-			{
-				GraphNode *val1 = *it;
-				GraphNode *val2 = *it;
-
-				if (val1->heuristic > val2->heuristic)
-				{
-					temp = val1;
-					val1 = val2;
-					val2 = temp;
-					swap = true;
-				}
-
-				count++;
-			}
-		} while (swap);
-	}
 }

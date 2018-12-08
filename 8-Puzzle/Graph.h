@@ -251,7 +251,6 @@ public:
 	void A_Star(GraphNode *);										// A* (Best-First Search) algorithm
 	int tilesOutOfPlace(int aState[9]);								// return the heuristic value for a GraphNode
 	int pathLength(GraphNode *node);								// return the path length of the GraphNode
-	void reorder(std::list<GraphNode*>&);							// reorder a list based of heuristic value
 };
 
 #endif

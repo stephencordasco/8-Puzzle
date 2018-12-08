@@ -71,7 +71,7 @@ int main()
 
 			default:			// user entered an invalid character
 				std::cout << "\nINVALID MENU CHOICE\n";
-				std::cout << "Press ENTER to continue...\n";
+				std::cout << "Press ENTER to continue...";
 				std::cin.get();
 				std::cin.get();
 				clearScreen();
@@ -196,7 +196,7 @@ void playGame()
 			countMoves++;
 			// print final move count
 			std::cout << "Total moves: " << countMoves << "\n";
-			std::cout << "Press ENTER to continue...\n";
+			std::cout << "Press ENTER to continue...";
 			std::cin.get();
 			std::cin.get();
 			gameOver = true;
@@ -290,7 +290,7 @@ void playGameBFS_AI()
 
 		default:
 			std::cout << "\n===== INVALID SELECTION =====\n";
-			std::cout << "Press ENTER to return to menu...\n";
+			std::cout << "Press ENTER to return to menu...";
 			std::cin.get();
 			std::cin.get();
 			return;
@@ -302,7 +302,6 @@ void playGameBFS_AI()
 	graph->BFS(root);
 
 	// deallocate memory
-	delete root;
 	delete graph;
 }
 
@@ -314,11 +313,63 @@ purpose:	AI attemps to solve puzzle using A* search algorithm
 void playGameA_Star_AI()
 {
 	// create an initial state
-	int initialState[9] = { 2, 8, 3, 1, 6, 4, 0, 7, 5 };			// MAIN test case
+	int initialState[9] =		{ 2, 8, 3, 1, 6, 4, 0, 7, 5 };			// MAIN test case
+	int initialStateEasy[9] =	{ 1, 2, 3, 0, 8, 4, 7, 6, 5 };			// EASY test case
+	int initialStateMedium[9] =	{ 0, 8, 3, 2, 6, 4, 1, 7, 5 };			// MEDIUM test case
+	int initialStateHard[9] =	{ 8, 3, 4, 2, 6, 5, 1, 7, 0 };			// HARD test case
 
-	Graph::GraphNode *root = new Graph::GraphNode(initialState);
+	// create a new graph node
+	Graph::GraphNode *root = nullptr;
+
+	// print the difficulty menu
+	difficultyMenu();
+	char choice = getMenuChoice();
+
+	switch (choice)
+	{
+	case '1':
+		// initial state
+		root = new Graph::GraphNode(initialState);
+		break;
+
+	case '2':
+		// EASY
+		root = new Graph::GraphNode(initialStateEasy);
+		break;
+
+	case '3':
+		// MEDIUM
+		root = new Graph::GraphNode(initialStateMedium);
+		break;
+
+	case '4':
+		// HARD
+		root = new Graph::GraphNode(initialStateHard);
+		break;
+
+	case '5':
+		// Custom
+		std::cout << "\nCustom Difficulty not available for this feature\n";
+		std::cout << "Press ENTER to return to menu...";
+		std::cin.get();
+		std::cin.get();
+		return;
+
+	default:
+		std::cout << "\n===== INVALID SELECTION =====\n";
+		std::cout << "Press ENTER to return to menu...";
+		std::cin.get();
+		std::cin.get();
+		return;
+	}
+
+	// create a new graph
 	Graph *graph = new Graph();
+	// begin A* search
 	graph->A_Star(root);
+
+	// deallocate memory
+	delete graph;
 }
 
 /*********************************************************************************
